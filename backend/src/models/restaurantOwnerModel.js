@@ -23,11 +23,11 @@ const RestaurantOwnerSchema = new mongoose.Schema(
             enum:["Male","Female"],
             default:"Male"
         },
-        profilePicture:{
+        imahge:{
             type:String,
         },
     },
-    {timestams:true}
+    { timestamps: true }
 );
 
 const RestaurantOwnerModel = mongoose.model("RestaurantOwnerModel",RestaurantOwnerSchema);
