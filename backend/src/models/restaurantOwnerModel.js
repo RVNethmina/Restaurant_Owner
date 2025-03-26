@@ -23,7 +23,7 @@ const RestaurantOwnerSchema = new mongoose.Schema(
             enum:["Male","Female"],
             default:"Male"
         },
-        imahge:{
+        profilePicture:{
             type:String,
         },
     },

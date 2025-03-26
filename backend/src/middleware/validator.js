@@ -1,5 +1,4 @@
 import Joi from "joi"
-import { Schema } from "mongoose";
 
 // Schema for Registration
 const registrationSchema = Joi.object({
@@ -12,12 +11,17 @@ const registrationSchema = Joi.object({
     profilePicture: Joi.string().optional()
 });
 
+//Schema for Login
+const loginSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required()
+});
 
 
 //API to validate registration
-const validateRegistrationBody = (Schema) => {
+const validateRegistrationBody = (schema) => {
     return (req, res, next) => {
-        const { error } = Schema.validate(req.body);
+        const { error } = schema.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
@@ -25,6 +29,21 @@ const validateRegistrationBody = (Schema) => {
     };
 }
 
+//API to validate login
+const validateLoginBody = (schema) => {
+    return (req,res,next) => {
+        const {error} = schema.validate(req.body);
+        if(error){
+            return res.status(400).json({error:error.details[0].message});
+        }
+        next();       
+    };
+}
+
+
 export {
+    registrationSchema,
     validateRegistrationBody,
+    loginSchema,
+    validateLoginBody
 }
